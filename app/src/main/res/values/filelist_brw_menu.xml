@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filelistmenu">
+    <item name="gridview" format="string" type="string">Gird View</item>
+	</string-array>
+    
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/bluetooth_settings">
+  <CheckBoxPreference android:key="bt_checkbox" android:title="@string/bluetooth"  /> 
+  <CheckBoxPreference android:key="bt_discoverable" android:title="@string/bluetooth_visibility" android:dependency="bt_checkbox" android:summaryOn="@string/bluetooth_is_discoverable" android:summaryOff="@string/bluetooth_not_discoverable" android:persistent="false" /> 
+  <Preference android:key="bt_scan" android:dependency="bt_checkbox" android:title="@string/bluetooth_preference_scan_title" /> 
+  <com.android.BluetoothFTP.ProgressCategory android:key="bt_device_list" android:title="@string/bluetooth_devices" android:dependency="bt_checkbox" android:orderingFromXml="false" /> 
+  </PreferenceScreen>

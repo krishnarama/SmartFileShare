@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<ListPreference android:key="frequencies" android:persistent="false" android:title="@string/setfreq" android:enabled="true" android:selectable="true" android:entryValues="@array/frequencies" android:entries="@array/frequencies" android:summary="set frequency"></ListPreference>
+	<ListPreference android:persistent="false" android:title="@string/setbaudrate" android:enabled="true" android:selectable="true" android:entryValues="@array/baudrate" android:entries="@array/baudrate" android:key="baudrate"></ListPreference>
+
+</PreferenceScreen>

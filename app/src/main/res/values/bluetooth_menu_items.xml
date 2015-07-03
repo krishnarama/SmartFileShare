@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="bluetoothMenuItems">
+		<item>Visible</item>
+		<item>Start Inquiry</item>
+		<item>Device</item>
+		<item>Datasend</item>
+		<item>Disconnect</item>
+		<item>Temperature</item>
+		<item>Dignostics</item>
+	</string-array>
+</resources>

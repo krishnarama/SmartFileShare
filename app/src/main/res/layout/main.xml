@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/theme6"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/srcLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvMyDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" My device:" />
+      
+        <TextView
+            android:id="@+id/srcCurrentPath"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:layout_height="20dip"
+            android:background="@android:color/darker_gray"
+            android:text="" 
+            android:scrollHorizontally="true"
+            android:scrollbarStyle="outsideInset"/>
+         
+        <View
+        	android:id="@+id/horizbarLeft"
+        	android:layout_width="wrap_content"
+        	android:layout_height="2dip"
+        	android:background="@android:color/background_light"/>
+
+        <LinearLayout
+            android:id="@+id/srcSubLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/srcListview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" 
+                android:dividerHeight="1dip" >
+            </ListView>
+ 
+         </LinearLayout>
+            
+    </LinearLayout>
+
+    <View
+        android:id="@+id/verticalbar"
+        android:layout_width="2dip"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"/>
+    
+    <LinearLayout
+        android:id="@+id/dstLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvRemoteDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Remote Device:" />
+
+        <TextView
+            android:id="@+id/dstCurrentPath"
+           android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
+            android:layout_height="20dip"
+            android:background="@android:color/darker_gray"
+            android:text="" />
+        
+        <View
+        	android:id="@+id/horizbarRight"
+        	android:layout_width="wrap_content"
+        	android:layout_height="2dip"
+        	android:background="@android:color/background_light"/>
+        
+        <LinearLayout
+            android:id="@+id/dstSubLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/dstListview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </ListView>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

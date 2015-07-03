@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<array name="mainmenuarray">
+		<item>Bluetooth</item>
+		<item>Settings</item>
+		<item>Info</item>
+	</array>
+	<string-array name="frequencies">
+		<item>1 MHZ</item>
+		<item>2 MHZ</item>
+		<item>3 MHZ</item>
+	</string-array>
+	<string-array name="baudrate">
+		<item>11500</item>
+		<item>9600</item>
+	</string-array>
+
+</resources>

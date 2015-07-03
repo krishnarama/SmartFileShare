@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, BluetoothFileBrowserActivity!</string>
+    <string name="app_name">MMX File Manager</string>
+	<string name="setfreq">Set Frequency</string>
+	<string name="setbaudrate">Set BaudRate</string>
+
+	<string name="main_menu">Main menu</string>
+	<string name="bluetooth_menu">Bluetooth menu</string>
+	<string name="settings_menu">Settings menu</string>
+	<string name="info_menu">Info menu</string>
+	<string name="bluetooth">Bluetooth</string>
+	<string name="bluetooth_visibility">Discoverable</string>
+	<string name="bluetooth_quick_toggle_title">Bluetooth</string>
+	<string name="bluetooth_quick_toggle_summary">Turn on Bluetooth</string>
+	<string name="bluetooth_settings">BlueShare settings</string>
+	<string name="bluetooth_settings_title">BlueShare settings</string>
+	<string name="bluetooth_settings_summary">Manage connections, set device name discoverability
+	</string>
+	<string name="bluetooth_pairing_request">Bluetooth pairing request</string>
+	<string name="bluetooth_device_info">Bluetooth device info</string>
+	<string name="bluetooth_preference_scan_title">Scan for devices</string>
+	<string name="bluetooth_devices">Bluetooth devices</string>
+	<string name="bluetooth_device_name">Device name</string>
+	<string name="bluetooth_name_not_set">No name set, using account name</string>
+	<string name="bluetooth_scan_for_devices">Scan for devices</string>
+	<string name="bluetooth_is_discoverable">Discoverable for</string>
+	<string name="bluetooth_not_discoverable">Make device discoverable</string>
+	<string name="connect_peer">Connect peer</string>
+	<string name="diagnostics">Diagnostics</string>
+	<string name="progress_scanning">Scanning</string>
+	<string name="bluetooth_starting">Turning on...</string>
+	<string name="bluetooth_stopping">Turning Off...</string>
+	<string name="bluetooth_error">Error</string>
+</resources>

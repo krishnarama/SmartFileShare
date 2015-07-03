@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="daigmenulist">
+  <item>Device</item> 
+  <item>Address</item> 
+  <item>Ctrl Ver</item> 
+  <item>Sniff</item> 
+  <item>LPM</item> 
+  <item>Peer 1 Menu</item> 
+  </string-array>
+</resources>

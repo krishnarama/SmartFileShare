@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomThemeBlue" parent="android:Theme.Light">
+        <item name="android:windowBackground">@drawable/bg</item>
+    </style>
+
+    <style name="CustomThemeBrown" parent="android:Theme.Light">
+        <item name="android:windowBackground">@drawable/bgbrown</item>
+    </style>
+	
+     <style name="CustomThemeTrack" parent="android:Theme.Light">
+        <item name="android:windowBackground">@drawable/theme6</item>
+    </style>
+        
+    <style name="CustomThemeBackground" parent="android:Theme.Light">
+        <item name="android:windowBackground">@drawable/background</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+   
+</resources>

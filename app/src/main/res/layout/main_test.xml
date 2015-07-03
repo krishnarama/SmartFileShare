@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+   android:background="@drawable/boarder"
+    android:animateLayoutChanges="true">
+
+    <LinearLayout
+        android:id="@+id/srcLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+         >
+
+        <TextView
+            android:id="@+id/tvMyDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My device:" />
+        
+       <LinearLayout
+        android:id="@+id/srcPathLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/boarder" >
+
+           <FrameLayout
+               android:id="@+id/srcframeLayout"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent" >
+
+               <TextView
+                   android:id="@+id/srcCurrentPath"
+                   android:layout_weight="4"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:ellipsize="marquee"
+				   android:scrollHorizontally="true"
+				   android:singleLine="true"
+				   android:focusable="true"
+                   android:textStyle="bold"
+				   android:focusableInTouchMode="true"
+				   android:marqueeRepeatLimit="marquee_forever"
+				   android:textColor="@android:color/black"
+				   android:background="@android:color/darker_gray"
+				   android:gravity="center_vertical" />
+
+
+			<LinearLayout
+			    android:id="@+id/srcinLayout"
+		        android:layout_width="wrap_content"		        
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="right">
+		        
+			    <ImageView
+                   android:id="@+id/locfolder"
+                   android:layout_width="40dip"
+                   android:layout_height="40dip"
+                    android:paddingRight="4dp"
+                  
+                   android:src="@drawable/newfolder_final" />
+               <ImageView
+                   android:id="@+id/upSrcButton"
+                   android:layout_width="40dip"
+                   android:layout_height="40dip"
+                   android:src="@drawable/back_final" />
+               
+			</LinearLayout>
+           </FrameLayout>
+	        
+        </LinearLayout>
+        
+       <!--  <View
+        	android:id="@+id/horizbarLeft"
+        	android:layout_width="wrap_content"
+        	android:layout_height="2dip"
+        	android:layout_marginTop="1dip"
+        	android:background="@android:color/background_light"/> -->
+
+	
+        <LinearLayout
+            android:id="@+id/srcSubLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" ><!--
+			
+            <ListView
+                android:id="@+id/srcListview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" 
+                android:dividerHeight="1dip" >
+            </ListView>
+ 
+         -->
+
+        </LinearLayout>
+     
+    </LinearLayout>
+
+    <View
+        android:id="@+id/verticalbar"
+        android:layout_width="2dip"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"/>
+    
+    <LinearLayout
+        android:id="@+id/dstLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvRemoteDevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Remote Device:" />
+
+        <LinearLayout
+	        android:id="@+id/dstPathLayout"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" 
+	        android:background="@drawable/boarder" >"
+
+				<FrameLayout
+	               android:id="@+id/dstframeLayout"
+	               android:layout_width="match_parent"
+	               android:layout_height="match_parent" >
+               
+				        <TextView 
+							android:id="@+id/dstCurrentPath"
+							android:layout_weight="5"
+							
+			                  android:layout_width="match_parent"
+			                  android:layout_height="match_parent"
+			                  android:ellipsize="marquee"
+						   android:scrollHorizontally="true"
+						   android:singleLine="true"
+						   android:focusable="true"
+						   android:focusableInTouchMode="true"
+						   android:marqueeRepeatLimit="marquee_forever"
+						   android:textColor="@android:color/black"
+                            android:textStyle="bold"
+						   android:background="@android:color/darker_gray"
+						  
+						   android:gravity="center_vertical" />
+				        
+						<LinearLayout
+						    android:id="@+id/srcinLayout"
+					        android:layout_width="wrap_content"		        
+					        android:layout_height="wrap_content"
+					        android:layout_gravity="right">
+					        
+						    <ImageView
+			                   android:id="@+id/rmtfolder"
+			                   android:layout_width="40dip"
+			                   android:layout_height="40dip"
+			                  android:paddingRight="4dp"
+			                   android:src="@drawable/paste_final2" />
+			               <ImageView
+			                   android:id="@+id/upDstButton"
+			                   android:layout_width="40dip"
+			                   android:layout_height="40dip"
+			                   android:src="@drawable/back_final" />
+			               
+						</LinearLayout>
+				         
+				     </FrameLayout>
+	        
+        </LinearLayout>
+        
+       <!--  <View
+        	android:id="@+id/horizbarRight"
+        	android:layout_width="wrap_content"
+        	android:layout_height="2dip"
+        	android:layout_marginTop="1dip"
+        	android:background="@android:color/background_light"/> -->
+        
+        <LinearLayout
+            android:id="@+id/dstSubLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
