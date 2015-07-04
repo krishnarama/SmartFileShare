@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
    android:background="@drawable/boarder"
     android:animateLayoutChanges="true">
 
     <LinearLayout
         android:id="@+id/srcLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
          >
@@ -102,14 +102,14 @@
 
     <View
         android:id="@+id/verticalbar"
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
+        android:layout_width="2dip"
+        android:layout_height="wrap_content"
         android:background="@android:color/black"/>
     
     <LinearLayout
         android:id="@+id/dstLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical" >
 
@@ -172,7 +172,7 @@
 				     </FrameLayout>
 	        
         </LinearLayout>
-        
+
        <!--  <View
         	android:id="@+id/horizbarRight"
         	android:layout_width="wrap_content"

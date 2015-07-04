@@ -14,7 +14,7 @@
     </style>
         
     <style name="CustomThemeBackground" parent="android:Theme.Light">
-        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:windowBackground">@drawable/backgd</item>
     </style>
 
     <style name="Theme.Transparent" parent="android:Theme">

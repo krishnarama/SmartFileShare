@@ -25,6 +25,7 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -107,54 +108,65 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.holo_orange_light));
-        setContentView(R.layout.main_test);
-		getActionBar().setBackgroundDrawable(new ColorDrawable(android.R.color.holo_orange_light));
+
+
         Log.v(LOGTAG, "onCreate");
     	SDCardPath = Environment.getExternalStorageDirectory().getPath();
-    	localCurrentDir = Environment.getExternalStorageDirectory();
-    	srcLinearLayout = (LinearLayout)findViewById(R.id.srcSubLayout);
-    	dstLinearLayout = (LinearLayout)findViewById(R.id.dstSubLayout);
-		mVerticalBar = (View)findViewById(R.id.verticalbar);
-		mDestLayout = (LinearLayout)findViewById(R.id.dstLayout);
-		mDestLayout.setVisibility(View.GONE);
-		mVerticalBar.setVisibility(View.GONE);
-		//dstLinearLayout.setVisibility(View.INVISIBLE);
-    	mBTService = BluetoothService.getBluetoothService(getApplicationContext());
-    	mBTService.ftpHandler = FileReceiveHandler;
-    	localCurrentFilePath = SDCardPath;
-		sdCard = new File(localCurrentFilePath);
-		remoteFileList = localFileList = sdCard.listFiles();
+    	remoteCurrentDir = localCurrentDir = Environment.getExternalStorageDirectory();
 
-    	loadLocalFiles(1);
-		loadLocalFiles(2);
-    	//loadRemoteFiles();
-    	tvSrcPath = (TextView)findViewById(R.id.srcCurrentPath);
-    	tvSrcPath.setText(localCurrentFilePath);
-    	tvDstPath = (TextView)findViewById(R.id.dstCurrentPath);
-    	tvDstPath.setText(remoteCurrentFilePath);
-    	srcParentButton = (ImageView)findViewById(R.id.upSrcButton);
-    	srcParentButton.setOnClickListener(this);
-    	dstParentButton = (ImageView)findViewById(R.id.upDstButton);
-    	dstParentButton.setOnClickListener(this);
-    	locNewFolder = (ImageView)findViewById(R.id.locfolder);
-    	locNewFolder.setOnClickListener(this);
-    	rmtNewFolder = (ImageView)findViewById(R.id.rmtfolder);
-    	rmtNewFolder.setOnClickListener(this);
-    	
-    	//mBluetoothAdapter = mBTService.getBluetoothAdapter();
-    	tvMyDevice = (TextView)findViewById(R.id.tvMyDevice);
-    	//tvMyDevice.setText("My Device:" + mBluetoothAdapter.getName());
-		tvMyDevice.setVisibility(View.GONE);
-    	//mBluetoothDevice = mBTService.getConnectedDevice();
-    	tvRemoteDevice = (TextView)findViewById(R.id.tvRemoteDevice);
-    	//tvRemoteDevice.setText("Remote Device:" + mBluetoothDevice.getName());
-		tvRemoteDevice.setVisibility(View.GONE);
-    	/*Intent in = new Intent(getApplicationContext(),MyService.class);
-    	bindService(in,null,BIND_AUTO_CREATE);*/
+        remoteCurrentFilePath = localCurrentFilePath = SDCardPath;
+        sdCard = new File(localCurrentFilePath);
+        remoteFileList = localFileList = sdCard.listFiles();
+
+        initializeUI();
     }
-    
+
+    private void initializeUI(){
+        setContentView(R.layout.main_test);
+        srcLinearLayout = (LinearLayout)findViewById(R.id.srcSubLayout);
+        dstLinearLayout = (LinearLayout)findViewById(R.id.dstSubLayout);
+        mVerticalBar = (View)findViewById(R.id.verticalbar);
+        mDestLayout = (LinearLayout)findViewById(R.id.dstLayout);
+        if(!mIsSplitViewOn) {
+            mDestLayout.setVisibility(View.GONE);
+            mVerticalBar.setVisibility(View.GONE);
+        }
+        //dstLinearLayout.setVisibility(View.INVISIBLE);
+        loadLocalFiles(1);
+        loadLocalFiles(2);
+        //loadRemoteFiles();
+        tvSrcPath = (TextView)findViewById(R.id.srcCurrentPath);
+        tvSrcPath.setText(localCurrentFilePath);
+        tvDstPath = (TextView)findViewById(R.id.dstCurrentPath);
+        tvDstPath.setText(remoteCurrentFilePath);
+        srcParentButton = (ImageView)findViewById(R.id.upSrcButton);
+        srcParentButton.setOnClickListener(this);
+        dstParentButton = (ImageView)findViewById(R.id.upDstButton);
+        dstParentButton.setOnClickListener(this);
+        locNewFolder = (ImageView)findViewById(R.id.locfolder);
+        locNewFolder.setOnClickListener(this);
+        rmtNewFolder = (ImageView)findViewById(R.id.rmtfolder);
+        rmtNewFolder.setOnClickListener(this);
+
+        //mBluetoothAdapter = mBTService.getBluetoothAdapter();
+        tvMyDevice = (TextView)findViewById(R.id.tvMyDevice);
+        //tvMyDevice.setText("My Device:" + mBluetoothAdapter.getName());
+        tvMyDevice.setVisibility(View.GONE);
+        //mBluetoothDevice = mBTService.getConnectedDevice();
+        tvRemoteDevice = (TextView)findViewById(R.id.tvRemoteDevice);
+        //tvRemoteDevice.setText("Remote Device:" + mBluetoothDevice.getName());
+        tvRemoteDevice.setVisibility(View.GONE);
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE || newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            initializeUI();
+            Log.v("myapp","inside onconfigurationchanged");
+
+        }
+        super.onConfigurationChanged(newConfig);
+    }
+
     @Override
     protected void onStart() {
     	// TODO Auto-generated method stub
@@ -236,10 +248,7 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 		}
 		else{
 			dstMtFolder = new TextView(this);
-			//dstLinearLayout.addView(dstMtFolder);
-			//mBTService.setPathRoot();
-			//remoteFileList = remoteCurrentDir.listFiles();//mBTService.getFolderList();
-			remoteCurrentFilePath = REMOTE_ROOT_PATH;
+
 			{
 				Log.v(LOGTAG, "remote list");
 				//localFileList = (ListView)findViewById(R.id.srcListview);
@@ -249,9 +258,8 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 					dstMtFolder.setGravity(Gravity.CENTER);
 
 				}
-				dstLinearLayout.setBackgroundResource(0);
-				dstLinearLayout.setBackground(null);
-				if(remoteFileListView == null) {
+
+
 					remoteFileListView = new ListView(this);
 					remoteFileListView.setId(2);
 					dstLinearLayout.addView(remoteFileListView);
@@ -259,7 +267,7 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 					remoteFileAdapt.setData(remoteFileList);
 					remoteFileListView.setAdapter(remoteFileAdapt);
 					remoteFileListView.setOnItemClickListener(this);
-				}
+
 			}
 
 			//registerForContextMenu(remoteFileListView);
@@ -487,52 +495,7 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
     	
     }
     
-   // private void loadRemoteFiles()
-    /*{
-    	dstMtFolder = new TextView(this);
-    	dstLinearLayout.addView(dstMtFolder);
-    	mBTService.setPathRoot();
-    	remoteFileList = mBTService.getFolderList();
-    	remoteCurrentFilePath = REMOTE_ROOT_PATH;
-    	if(remoteFileList.size() == 0)
-    	{
-    		
-    		dstMtFolder.setText(FOLDERMT);
-    		dstMtFolder.setGravity(Gravity.CENTER_VERTICAL);
-    		
-    		Log.v(LOGTAG, "remote list0");
-    	}
-    	else{
-    		Log.v(LOGTAG, "remote list");
-    		//localFileList = (ListView)findViewById(R.id.srcListview);
-    		remoteFileListView = new ListView(this);
-    		remoteFileListView.setId(2);
-    		dstLinearLayout.addView(remoteFileListView);
-        	remoteFileAdapt = new RemoteFileListAdapter(this);
-        	remoteFileAdapt.setData(remoteFileList);
-        	remoteFileListView.setAdapter(remoteFileAdapt);
-        	remoteFileListView.setOnItemClickListener(this);
-    	}
-    	
-    	//registerForContextMenu(remoteFileListView);
-    	
-    	remoteFileListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-
-			public boolean onItemLongClick(AdapterView<?> arg0, View view,
-					int position, long arg3) {
-				
-				ClipData data = ClipData.newPlainText("FileName", remoteFileList.get(position).getFileName());
-				FTPDragListener listener = new FTPDragListener(FTP_GET,0,srcLinearLayout);
-				srcLinearLayout.setOnDragListener(listener);
-				dstLinearLayout.setOnDragListener(null);
-				view.startDrag(data, new MyShadowBuilder(view), null, 0);
-				return true;
-			}   	   	
-    	
-		});
-    	
-    }*/
     private boolean mIsSplitViewOn = false;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -636,34 +599,7 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 			{
 				Log.v(LOGTAG, "Folder: "+ tempFile.getName()+ " is not readable!!" );
 			}
-		}else{
-			/*// Launch File Dailog
-			//final CharSequence[] options = {"Delete File", "Rename File"};
-			final CharSequence[] options = {"Delete File"};
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Choose an option");
-			builder.setItems(options, new DialogInterface.OnClickListener() {
-			    public void onClick(DialogInterface dialog, int item) {
-			        Toast.makeText(getApplicationContext(), options[item], Toast.LENGTH_SHORT).show();
-			        File tempFile = localFileList[position];
-			        switch(item)
-			        {
-			        case 0: //Delete File
-			        	deleteLocalFile(tempFile);
-			        	break;
-			        case 1: //Rename File
-			        	renameLocalFile(tempFile);
-			        	break;
-			       default:
-			    	   break;
-			        }
-			    }
-			});
-			AlertDialog alert = builder.create();
-			alert.show();
-			Log.v(LOGTAG, "File Dailog" );*/
 		}
-		
 		
 	}
 
@@ -840,31 +776,6 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 				Log.v(LOGTAG, "upDstButton is clicked");
 
 				updateRemoteFileListonBack();
-				//mBTService.setPathBackward();
-				/*String pathString[] = remoteCurrentFilePath.split("/");
-				remoteCurrentFilePath = null;
-				int len = pathString.length;
-				StringBuilder tempPath = new StringBuilder();
-				int i=0;
-				while(len - 1 > 0){
-					
-				tempPath.append(pathString[i] + "/");
-				i++;
-				len--;
-				}
-				remoteCurrentFilePath = tempPath.toString();
-				tvDstPath.setText(remoteCurrentFilePath);
-				Log.v("log", "Path is: " + remoteCurrentFilePath);
-				File[] tempFileList = remoteCurrentDir.listFiles();;//mBTService.getFolderList();
-				if(!remoteFileListView.isShown())
-				{
-					dstMtFolder.setVisibility(View.GONE);
-					remoteFileListView.setVisibility(View.VISIBLE);
-				}
-				remoteFileList = tempFileList;
-				remoteFileAdapt.setData(tempFileList);
-				remoteFileAdapt.notifyDataSetChanged();
-*/
 			}
 			break;
 			case R.id.rmtfolder:
