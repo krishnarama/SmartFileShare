@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/list_selector"
-    android:orientation="horizontal"
-     >
-
-    <LinearLayout
-        android:id="@+id/thumbnail"
+ <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:layout_alignParentLeft="true">
-        <ImageView
-            android:id="@+id/filelisticon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_launcher"/>
-    </LinearLayout>
+        android:orientation="horizontal"
+         >
 
-    <TextView
-        android:id="@+id/tvfileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_alignTop="@+id/thumbnail"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:paddingTop="3dp"
-        android:text="TextView"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"/>
+        <LinearLayout
+            android:id="@+id/thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:layout_alignParentLeft="true">
+            <ImageView
+                android:id="@+id/filelisticon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_launcher"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/length"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/tvfileName"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:text="TextView"
-        android:textSize="10sp"
-        android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/tvfileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignTop="@+id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_alignBaseline="@+id/filelisticon"
+            android:paddingTop="3dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
 
-    <TextView
-        android:id="@+id/lastmodified"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_below="@+id/length"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:text="TextView"
-        android:textSize="10sp"
-        android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/tvfileName"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:text="TextView"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/lastmodified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignBaseline="@+id/length"
+            android:layout_alignParentRight="true"
+            android:text="TextView"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

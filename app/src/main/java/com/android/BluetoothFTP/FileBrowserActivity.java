@@ -39,6 +39,10 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.DragEvent;
@@ -62,7 +66,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FileBrowserActivity extends Activity implements OnItemClickListener, OnClickListener {
+import org.apache.commons.net.ftp.FTPFile;
+
+public class FileBrowserActivity extends AppCompatActivity implements OnItemClickListener, OnClickListener, NavigationDrawerFragment.NavigationDrawerCallbacks {
 	
     private static final String LOGTAG = "FTPFileListBrowser";
     private static final String FOLDERMT = "Folder is empty";
@@ -103,6 +109,15 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 	private LinearLayout mDestLayout;
 
 	private View mVerticalBar;
+
+    private NavigationDrawerFragment mNavigationDrawerFragment;
+
+    private CharSequence mTitle;
+
+    private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
+
+    private LinearLayout mRootLayout;
     
     /** Called when the activity is first created. */
     @Override
@@ -111,19 +126,69 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 
 
         Log.v(LOGTAG, "onCreate");
-    	SDCardPath = Environment.getExternalStorageDirectory().getPath();
-    	remoteCurrentDir = localCurrentDir = Environment.getExternalStorageDirectory();
+		if(savedInstanceState == null) {
+			SDCardPath = Environment.getExternalStorageDirectory().getPath();
+			remoteCurrentDir = localCurrentDir = Environment.getExternalStorageDirectory();
 
-        remoteCurrentFilePath = localCurrentFilePath = SDCardPath;
-        sdCard = new File(localCurrentFilePath);
-        remoteFileList = localFileList = sdCard.listFiles();
+			remoteCurrentFilePath = localCurrentFilePath = SDCardPath;
+			sdCard = new File(localCurrentFilePath);
+			remoteFileList = localFileList = sdCard.listFiles();
+		}else{
+			localCurrentFilePath = savedInstanceState.getString("localcurrentfilepath");
+			remoteCurrentFilePath = savedInstanceState.getString("remotecurrentfilepath");
+			localFileList = new File(localCurrentFilePath).listFiles();
+			remoteFileList = new File(remoteCurrentFilePath).listFiles();
+
+			String localcurpath = savedInstanceState.getString("localcurrentdir");
+			String remotecurpath = savedInstanceState.getString("remotecurrentdir");
+			localCurrentDir = new File(localcurpath);
+			remoteCurrentDir = new File(remotecurpath);
+
+            mIsSplitViewOn = savedInstanceState.getBoolean("splitview");
+
+		}
 
         initializeUI();
+
     }
 
     private void initializeUI(){
-        setContentView(R.layout.main_test);
-        srcLinearLayout = (LinearLayout)findViewById(R.id.srcSubLayout);
+        setContentView(R.layout.main);
+
+        mRootLayout = (LinearLayout)findViewById(R.id.rootlayout);
+            mNavigationDrawerFragment = (NavigationDrawerFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+            mToolbar = (Toolbar) findViewById(R.id.toptoolbar);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
+            // mNavigationDrawerFragment = new NavigationDrawerFragment();
+
+            // Set up the drawer.
+            mNavigationDrawerFragment.setUp(
+                    R.id.navigation_drawer,
+                    (DrawerLayout) findViewById(R.id.drawer_layout));
+            mTitle = getTitle();
+
+
+            setSupportActionBar(mToolbar);
+            mToolbar.setNavigationIcon(R.drawable.ic_drawer);
+
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDrawerLayout.openDrawer(Gravity.START);
+                }
+            });
+
+            mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return onMenuItemSelected(item);
+                }
+            });
+
+        srcLinearLayout = (LinearLayout) findViewById(R.id.srcSubLayout);
         dstLinearLayout = (LinearLayout)findViewById(R.id.dstSubLayout);
         mVerticalBar = (View)findViewById(R.id.verticalbar);
         mDestLayout = (LinearLayout)findViewById(R.id.dstLayout);
@@ -148,23 +213,25 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
         rmtNewFolder = (ImageView)findViewById(R.id.rmtfolder);
         rmtNewFolder.setOnClickListener(this);
 
-        //mBluetoothAdapter = mBTService.getBluetoothAdapter();
         tvMyDevice = (TextView)findViewById(R.id.tvMyDevice);
-        //tvMyDevice.setText("My Device:" + mBluetoothAdapter.getName());
         tvMyDevice.setVisibility(View.GONE);
-        //mBluetoothDevice = mBTService.getConnectedDevice();
         tvRemoteDevice = (TextView)findViewById(R.id.tvRemoteDevice);
-        //tvRemoteDevice.setText("Remote Device:" + mBluetoothDevice.getName());
         tvRemoteDevice.setVisibility(View.GONE);
     }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE || newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            initializeUI();
-            Log.v("myapp","inside onconfigurationchanged");
 
-        }
-        super.onConfigurationChanged(newConfig);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("localcurrentfilepath",localCurrentFilePath);
+        outState.putString("remotecurrentfilepath",remoteCurrentFilePath);
+		outState.putString("localcurrentdir", localCurrentDir.getPath());
+		outState.putString("remotecurrentdir", remoteCurrentDir.getPath());
+        outState.putBoolean("splitview", mIsSplitViewOn);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -186,13 +253,13 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 			srcMtFolder = new TextView(this);
 			//srcLinearLayout.addView(srcMtFolder);
 
-			srcMtFolder.setGravity(Gravity.AXIS_Y_SHIFT);
+			/*srcMtFolder.setGravity(Gravity.AXIS_Y_SHIFT);
 			if (localFileList.length == 0) {
 
 				srcMtFolder.setText(FOLDERMT);
 				srcMtFolder.setGravity(Gravity.CENTER);
 
-			} else {
+			} else {*/
 				//localFileList = (ListView)findViewById(R.id.srcListview);
 				localFileListView = new ListView(this);
 				localFileListView.setId(1);
@@ -202,7 +269,7 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 				localFileListView.setAdapter(localFileAdapt);
 				localFileListView.setOnItemClickListener(this);
 
-			}
+			//}
 
 			//registerForContextMenu(localFileListView);
 
@@ -292,6 +359,20 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 		}
 	}
 
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        Log.v("myapp","position is::"+position);
+                if(position == 0){
+
+                } else if(position == 1){
+                    Intent intent = new Intent(getApplicationContext(),BTSettings.class);
+                    startActivity(intent);
+
+                } else if(position == 2){
+					Intent intent = new Intent(getApplicationContext(),FTPFileBrowserActivity.class);
+					startActivity(intent);
+                }
+    }
 
 
     class FTPDragListener implements View.OnDragListener{
@@ -489,12 +570,9 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
     		menu.add("Download File");
     		break;
     	}
-
-    	
     	
     	
     }
-    
 
     private boolean mIsSplitViewOn = false;
     @Override
@@ -511,8 +589,8 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
     	return true;
     }
 	
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+
+    private boolean onMenuItemSelected( MenuItem item) {
 
     	switch(item.getItemId())
     	{
@@ -551,7 +629,8 @@ public class FileBrowserActivity extends Activity implements OnItemClickListener
 			break;
     	}
     	Log.v(LOGTAG, "default menu handle");
-    	return super.onMenuItemSelected(featureId, item);
+
+        return true;
     }
     	
 

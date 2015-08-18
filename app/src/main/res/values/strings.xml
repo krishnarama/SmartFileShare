@@ -33,4 +33,11 @@
 	<string name="bluetooth_starting">Turning on...</string>
 	<string name="bluetooth_stopping">Turning Off...</string>
 	<string name="bluetooth_error">Error</string>
+
+	<string name="title_section1">Browse Local Files</string>
+	<string name="title_section2">Bluetooth FTP</string>
+	<string name="title_section3">WIFI FTP</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

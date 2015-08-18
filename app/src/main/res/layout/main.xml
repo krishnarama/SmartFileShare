@@ -1,105 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/theme6"
-    android:orientation="horizontal" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/srcLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/tvMyDevice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" My device:" />
-      
-        <TextView
-            android:id="@+id/srcCurrentPath"
-            android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:textSize="12sp"
-            android:textColor="@android:color/black"
-            android:layout_height="20dip"
-            android:background="@android:color/darker_gray"
-            android:text="" 
-            android:scrollHorizontally="true"
-            android:scrollbarStyle="outsideInset"/>
-         
-        <View
-        	android:id="@+id/horizbarLeft"
-        	android:layout_width="wrap_content"
-        	android:layout_height="2dip"
-        	android:background="@android:color/background_light"/>
-
-        <LinearLayout
-            android:id="@+id/srcSubLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <ListView
-                android:id="@+id/srcListview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" 
-                android:dividerHeight="1dip" >
-            </ListView>
- 
-         </LinearLayout>
-            
-    </LinearLayout>
-
-    <View
-        android:id="@+id/verticalbar"
-        android:layout_width="2dip"
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toptoolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"/>
-    
-    <LinearLayout
-        android:id="@+id/dstLayout"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:minHeight="?attr/actionBarSize"
+        android:background="#FFA000"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <TextView
-            android:id="@+id/tvRemoteDevice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" Remote Device:" />
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/dstCurrentPath"
-           android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:textSize="12sp"
-            android:textColor="@android:color/black"
-            android:layout_height="20dip"
-            android:background="@android:color/darker_gray"
-            android:text="" />
-        
-        <View
-        	android:id="@+id/horizbarRight"
-        	android:layout_width="wrap_content"
-        	android:layout_height="2dip"
-        	android:background="@android:color/background_light"/>
-        
-        <LinearLayout
-            android:id="@+id/dstSubLayout"
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="match_parent" />
 
-            <ListView
-                android:id="@+id/dstListview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-            </ListView>
+        <include layout="@layout/main_test" />
 
-        </LinearLayout>
-    </LinearLayout>
+        <fragment android:id="@+id/navigation_drawer"
+            android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:name="com.android.BluetoothFTP.NavigationDrawerFragment"
+            tools:layout="@layout/fragment_navigation_drawer" />
+
+    </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>
